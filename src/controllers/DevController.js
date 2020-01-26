@@ -34,5 +34,17 @@ module.exports = {
 			});
 		}
 		return res.json(dev);
+	},
+
+	async update(req, res) {
+
+		console.log(req.params);
+
+		const dev = await Dev.findByIdAndUpdate(req.params.id, req.body, { new: true }, () => {
+			dev.techs = req.body.techs;
+		});
+
+		return res.json(dev)
+
 	}
 }
