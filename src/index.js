@@ -1,10 +1,12 @@
+require('dotenv/config');
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 const cors = require('cors');
 const app = express();
 
-mongoose.connect('mongodb+srv://vinicius:vinicius@cluster0-37erj.mongodb.net/week10?retryWrites=true&w=majority', {
+
+mongoose.connect(process.env.MONGO_CONNECT, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -18,6 +20,6 @@ app.use(routes);
 //body: usado pelo POST -> req.body(são dados para criação e alteração de um registro).
 
 
-app.listen(3333, () => {
+app.listen(process.env.PORT, () => {
     console.log('ok');
 });

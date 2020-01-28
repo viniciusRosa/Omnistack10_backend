@@ -46,5 +46,15 @@ module.exports = {
 
 		return res.json(dev)
 
+	},
+
+	async delete(req, res) {
+
+		console.log(req.params);
+
+		const dev = await Dev.findByIdAndDelete(req.params.id);
+
+		return res.send()
+
 	}
 }
