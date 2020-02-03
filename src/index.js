@@ -7,7 +7,7 @@ const cors = require('cors');
 const { setupWevSocket } = require('./webSocket');
 
 const app = express();
-const server = http.Server();
+const server = http.Server(app);
 
 setupWevSocket(server);
 
@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGO_CONNECT, {
 });
 app.use(cors());
 app.use(express.json());
-server.use(routes);
+app.use(routes);
 // paraametros
 
 //query params: usado no GET -> req.query(filtros, ordenação, paginação)
