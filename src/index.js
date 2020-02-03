@@ -1,10 +1,15 @@
 require('dotenv/config');
 const express = require('express');
+const http = require('http');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 const cors = require('cors');
-const app = express();
+const { setupWevSocket } = require('./webSocket');
 
+const app = express();
+const server = http.Server();
+
+setupWevSocket(server);
 
 mongoose.connect(process.env.MONGO_CONNECT, {
     useNewUrlParser: true,
@@ -12,7 +17,7 @@ mongoose.connect(process.env.MONGO_CONNECT, {
 });
 app.use(cors());
 app.use(express.json());
-app.use(routes);
+server.use(routes);
 // paraametros
 
 //query params: usado no GET -> req.query(filtros, ordenação, paginação)
